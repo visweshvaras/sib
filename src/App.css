@@ -1,0 +1,404 @@
+.home-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    /* DO NOT set background-color here — it overrides the body gradient */
+    background-color: transparent;
+}
+
+.spline-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* Place 3D scene behind UI */
+}
+
+/* Ensure the canvas covers full space */
+.spline-background canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Loader */
+.spline-loader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-left-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Foreground UI layer */
+.glass-overlay {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 60px;
+    pointer-events: none;
+    /* Crucial: lets users interact with 3D canvas behind */
+}
+
+/* Header */
+.home-header {
+    pointer-events: auto;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+}
+
+.home-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+/* Main Content Layout */
+.home-main {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    pointer-events: none;
+    /* Keep clicks passing through */
+}
+
+/* Synthesizer Glass Panel */
+.glass-panel {
+    pointer-events: auto;
+    /* Re-enable clicks for the form */
+    background: rgba(10, 15, 25, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* Inputs */
+.styled-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.styled-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.styled-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+select.styled-input {
+    cursor: pointer;
+    appearance: auto;
+}
+
+select.styled-input option {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Button */
+.contact-btn {
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.contact-btn:hover:not(:disabled) {
+    background: #357abd;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+}
+
+.contact-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Min / Max toggle */
+.term-type-toggle {
+    display: flex;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 4px;
+}
+
+.term-type-toggle button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px 16px;
+    color: var(--text-color-muted);
+    cursor: pointer;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    letter-spacing: 0.5px;
+}
+
+.term-type-toggle button.active {
+    background: var(--accent-color);
+    color: white;
+    box-shadow: 0 0 12px rgba(74, 144, 226, 0.4);
+    font-weight: 600;
+}
+
+.term-type-toggle button:not(.active):hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-color);
+}
+
+/* Logic Diagram Button */
+.generate-diagram-btn {
+    width: 100%;
+    background: rgba(0, 210, 255, 0.1);
+    color: #00d2ff;
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.generate-diagram-btn:hover {
+    background: rgba(0, 210, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+    border-color: #00d2ff;
+}
+
+/* Fullscreen Modal */
+.diagram-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.diagram-modal {
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+}
+
+.modal-toolbar {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111827;
+    /* Force dark toolbar so buttons always pop */
+}
+
+.modal-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.toolbar-btn.primary {
+    background: rgba(0, 210, 255, 0.15);
+    color: #00d2ff;
+    border: 1px solid rgba(0, 210, 255, 0.3);
+}
+
+.toolbar-btn.primary:hover {
+    background: rgba(0, 210, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.toolbar-btn.close {
+    background: rgba(255, 77, 77, 0.15);
+    color: #ff4d4d;
+    padding: 8px;
+    border: 1px solid rgba(255, 77, 77, 0.3);
+}
+
+.toolbar-btn.close:hover {
+    background: rgba(255, 77, 77, 0.25);
+    transform: translateY(-1px);
+}
+
+.theme-toggle {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle button {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    color: var(--text-color-muted);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.theme-toggle button.active {
+    background: var(--accent-color);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-canvas-container {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+    /* Smooth transitions when switching themes */
+    transition: background-color 0.3s ease;
+}
+
+.modal-canvas-container[data-theme="dark"] {
+    background: #0f172a;
+    /* Deep slate acting as dark background */
+}
+
+.modal-canvas-container[data-theme="light"] {
+    background: #f8fafc;
+    /* Crisp light background */
+}
+
+.export-target {
+    /* This is the div that gets captured by html2canvas */
+    min-width: max-content;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* React Flow Native Controls (Zoom, Fit, Lock) */
+.react-flow__controls-button {
+    background-color: #000000 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    fill: #ffffff !important;
+}
+
+.react-flow__controls-button:hover {
+    background-color: rgba(0, 210, 255, 0.2) !important;
+    fill: #00d2ff !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .glass-overlay {
+        padding: 20px;
+    }
+
+    .glass-panel {
+        padding: 1.5rem;
+        max-width: 100%;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .home-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .diagram-modal-overlay {
+        padding: 0.5rem;
+    }
+
+    .modal-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .modal-actions {
+        justify-content: space-between;
+    }
+}
