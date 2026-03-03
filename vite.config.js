@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/silicon-brainss/',
+    // Vercel sets process.env.VERCEL to '1' when building.
+    // Use '/' for Vercel, and '/silicon-brainss/' for GitHub Pages.
+    base: process.env.VERCEL ? '/' : '/silicon-brainss/',
     plugins: [react()],
     build: {
         chunkSizeWarningLimit: 2000,
