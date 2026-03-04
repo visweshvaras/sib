@@ -116,6 +116,13 @@ silicon-brain/
 4. Deploy!
 
 ### Vercel
+Vercel deployment is configured automatically via the `vercel.json` file included in this repository. This file ensures that Vercel clears its cache and correctly installs the required Linux binaries for `esbuild` and `rollup` before building.
+
+1. Push your code to GitHub.
+2. Import the repository in your Vercel dashboard.
+3. Vercel will automatically detect Vite and use the `vercel.json` overrides to build and deploy the app successfully.
+
+You can also deploy via CLI:
 ```bash
 npx vercel --prod
 ```
