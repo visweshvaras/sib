@@ -403,122 +403,120 @@ select.styled-input option {
     }
 }
  
- / *   K - M a p   S t y l e s   * / 
- . k m a p - c o n t a i n e r   { 
-     b a c k g r o u n d :   r g b a ( 1 0 ,   1 5 ,   3 0 ,   0 . 4 ) ; 
-     b o r d e r :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 0 5 ) ; 
-     b o r d e r - r a d i u s :   1 2 p x ; 
-     b a c k d r o p - f i l t e r :   b l u r ( 1 2 p x ) ; 
-     - w e b k i t - b a c k d r o p - f i l t e r :   b l u r ( 1 2 p x ) ; 
-     p a d d i n g :   1 . 5 r e m ; 
-     m a r g i n - b o t t o m :   2 r e m ; 
-     b o x - s h a d o w :   0   4 p x   2 0 p x   r g b a ( 0 ,   0 ,   0 ,   0 . 2 ) ; 
- } 
- 
- . k m a p - c o n t a i n e r . f a l l b a c k   { 
-     t e x t - a l i g n :   c e n t e r ; 
-     p a d d i n g :   2 r e m ; 
- } 
- 
- . k m a p - s c r o l l - w r a p p e r   { 
-     o v e r f l o w - x :   a u t o ; 
-     p a d d i n g - b o t t o m :   0 . 5 r e m ; 
- } 
- 
- . k m a p - t a b l e   { 
-     b o r d e r - c o l l a p s e :   c o l l a p s e ; 
-     m a r g i n :   0   a u t o ; 
-     f o n t - f a m i l y :   m o n o s p a c e ; 
- } 
- 
- . k m a p - t a b l e   t h ,   . k m a p - t a b l e   t d   { 
-     b o r d e r :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
-     t e x t - a l i g n :   c e n t e r ; 
-     p a d d i n g :   0 ; 
- } 
- 
- . k m a p - t a b l e   t h   { 
-     b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 0 5 ) ; 
-     c o l o r :   v a r ( - - t e x t - c o l o r - m u t e d ) ; 
-     f o n t - w e i g h t :   6 0 0 ; 
-     p a d d i n g :   0 . 5 r e m ; 
-     f o n t - s i z e :   0 . 9 r e m ; 
- } 
- 
- . k m a p - c e l l   { 
-     w i d t h :   6 0 p x ; 
-     h e i g h t :   6 0 p x ; 
-     p o s i t i o n :   r e l a t i v e ; 
-     b a c k g r o u n d :   r g b a ( 0 ,   0 ,   0 ,   0 . 2 ) ; 
-     t r a n s i t i o n :   a l l   0 . 2 s   e a s e ; 
- } 
- 
- . k m a p - c e l l : h o v e r   { 
-     b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 0 5 ) ; 
- } 
- 
- . k m a p - c e l l . a c t i v e - c e l l   { 
-     b a c k g r o u n d :   r g b a ( 0 ,   2 1 0 ,   2 5 5 ,   0 . 1 5 ) ;   / *   m a t c h i n g   t h e   a c c e n t   c y a n   * / 
-     b o r d e r - c o l o r :   r g b a ( 0 ,   2 1 0 ,   2 5 5 ,   0 . 4 ) ; 
- } 
- 
- . k m a p - c e l l . a c t i v e - c e l l   . c e l l - v a l u e   { 
-     c o l o r :   # 0 0 d 2 f f ; 
-     t e x t - s h a d o w :   0   0   8 p x   r g b a ( 0 ,   2 1 0 ,   2 5 5 ,   0 . 5 ) ; 
-     f o n t - w e i g h t :   b o l d ; 
- } 
- 
- . c e l l - v a l u e   { 
-     f o n t - s i z e :   1 . 5 r e m ; 
-     c o l o r :   v a r ( - - t e x t - c o l o r ) ; 
- } 
- 
- . m i n t e r m - i n d e x   { 
-     p o s i t i o n :   a b s o l u t e ; 
-     t o p :   4 p x ; 
-     r i g h t :   4 p x ; 
-     f o n t - s i z e :   0 . 6 r e m ; 
-     c o l o r :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 3 ) ; 
- } 
- 
- . d i a g o n a l - h e a d e r   { 
-     p o s i t i o n :   r e l a t i v e ; 
-     m i n - w i d t h :   6 0 p x ; 
-     m i n - h e i g h t :   6 0 p x ; 
- } 
- 
- . s p l i t - c e l l   { 
-     p o s i t i o n :   r e l a t i v e ; 
-     w i d t h :   1 0 0 % ; 
-     h e i g h t :   1 0 0 % ; 
- } 
- 
- / *   S i m u l a t e   d i a g o n a l   l i n e   u s i n g   a   p s e u d o - e l e m e n t   * / 
- . d i a g o n a l - h e a d e r : : b e f o r e   { 
-     c o n t e n t :   ' ' ; 
-     p o s i t i o n :   a b s o l u t e ; 
-     t o p :   0 ; 
-     l e f t :   0 ; 
-     w i d t h :   1 0 0 % ; 
-     h e i g h t :   1 0 0 % ; 
-     b o r d e r - b o t t o m :   2 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
-     t r a n s f o r m :   r o t a t e ( 3 8 d e g ) ;   / *   A p p r o x i m a t e   a n g l e   * / 
-     t r a n s f o r m - o r i g i n :   t o p   l e f t ; 
-     z - i n d e x :   1 ; 
- } 
- 
- . s p l i t - c e l l   . b o t t o m - l e f t   { 
-     p o s i t i o n :   a b s o l u t e ; 
-     b o t t o m :   4 p x ; 
-     l e f t :   4 p x ; 
-     f o n t - s i z e :   0 . 8 r e m ; 
- } 
- 
- . s p l i t - c e l l   . t o p - r i g h t   { 
-     p o s i t i o n :   a b s o l u t e ; 
-     t o p :   4 p x ; 
-     r i g h t :   4 p x ; 
-     f o n t - s i z e :   0 . 8 r e m ; 
- } 
-  
- 
+/* K-Map Styles */
+.kmap-container {
+    background: rgba(10, 15, 30, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.kmap-container.fallback {
+    text-align: center;
+    padding: 2rem;
+}
+
+.kmap-scroll-wrapper {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.kmap-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-family: monospace;
+}
+
+.kmap-table th, .kmap-table td {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    padding: 0;
+}
+
+.kmap-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-color-muted);
+    font-weight: 600;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.kmap-cell {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    background: rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.kmap-cell:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.kmap-cell.active-cell {
+    background: rgba(0, 210, 255, 0.15);
+    border-color: rgba(0, 210, 255, 0.4);
+}
+
+.kmap-cell.active-cell .cell-value {
+    color: #00d2ff;
+    text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+    font-weight: bold;
+}
+
+.cell-value {
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.minterm-index {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.diagonal-header {
+    position: relative;
+    min-width: 60px;
+    min-height: 60px;
+}
+
+.split-cell {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Simulate diagonal line using a pseudo-element */
+.diagonal-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    transform: rotate(38deg);
+    transform-origin: top left;
+    z-index: 1;
+}
+
+.split-cell .bottom-left {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    font-size: 0.8rem;
+}
+
+.split-cell .top-right {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 0.8rem;
+}
