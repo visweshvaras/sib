@@ -2,6 +2,7 @@ import React, { useState, Suspense, useRef } from 'react';
 import './App.css';
 import CubesScene from './CubesScene';
 import { solveQM } from './qmLogic';
+import KMapVisualizer from './KMapVisualizer';
 import { LogicGateVisualizer } from './LogicGateVisualizer';
 import { MathModel } from './MathModel';
 import html2canvas from 'html2canvas';
@@ -18,6 +19,10 @@ function App() {
     const [diagramTheme, setDiagramTheme] = useState('dark');
     const [synthesisTarget, setSynthesisTarget] = useState('standard');
     const [activeTab, setActiveTab] = useState('solver');
+
+    // Store snapped states for the K-Map to bind to (prevents mid-typing rerenders)
+    const [activeMinterms, setActiveMinterms] = useState([]);
+    const [activeNumVars, setActiveNumVars] = useState(4);
 
     const visualizerRef = useRef(null);
 
@@ -50,6 +55,18 @@ function App() {
 
             const optimizedExpression = solveQM(inputTerms, n);
             setResult(optimizedExpression);
+
+            // Snap exact minterm integer array and variable count for KMap
+            if (!optimizedExpression.startsWith('Error')) {
+                const parsedTerms = inputTerms.split(',')
+                    .map(m => m.trim())
+                    .filter(m => m !== '')
+                    .map(m => parseInt(m, 10))
+                    .filter(m => !isNaN(m));
+                setActiveMinterms(parsedTerms);
+                setActiveNumVars(n);
+            }
+
             setIsComputing(false);
         }, 800);
     };
@@ -239,9 +256,12 @@ function App() {
                                 </div>
 
                                 {result && !result.startsWith('Error') && result !== '1' && result !== '0' && (
-                                    <button onClick={() => setIsModalOpen(true)} className="generate-diagram-btn">
-                                        <Maximize2 size={18} /> Open Interactive Logic Builder
-                                    </button>
+                                    <>
+                                        <KMapVisualizer minterms={activeMinterms} numVars={activeNumVars} />
+                                        <button onClick={() => setIsModalOpen(true)} className="generate-diagram-btn">
+                                            <Maximize2 size={18} /> Open Interactive Logic Builder
+                                        </button>
+                                    </>
                                 )}
                             </div>
                         </section>
