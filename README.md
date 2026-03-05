@@ -5,7 +5,7 @@
 ![Silicon Brain](https://img.shields.io/badge/Vite-5.0-646CFF?style=flat&logo=vite&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react&logoColor=black)
 ![Three.js](https://img.shields.io/badge/Three.js-r160-black?style=flat&logo=three.js&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat)
+![License](https://img.shields.io/badge/License-Custom-red?style=flat)
 
 ---
 
@@ -131,7 +131,9 @@ npx vercel --prod
 
 ## 📜 License
 
-MIT — free to use, modify, and distribute.
+This project is licensed under a custom restrictive license. 
+You are permitted to copy the repository for your own personal use only. 
+You may not distribute, sell, or modify the project. See the [LICENSE](LICENSE) file for more details.
 
 ---
 
