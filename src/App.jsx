@@ -2,12 +2,13 @@ import React, { useState, Suspense, useRef } from 'react';
 import './App.css';
 import CubesScene from './CubesScene';
 import { solveQM } from './qmLogic';
+import { generateVerilog, generateSystemVerilog } from './verilogGenerator';
 import KMapVisualizer from './KMapVisualizer';
 import { LogicGateVisualizer } from './LogicGateVisualizer';
 import { MathModel } from './MathModel';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { Cpu, Zap, Activity, Download, Image as ImageIcon, Maximize2, X, Moon, Sun } from 'lucide-react';
+import { Cpu, Zap, Activity, Download, Image as ImageIcon, Maximize2, X, Moon, Sun, Copy, Check } from 'lucide-react';
 
 function App() {
     const [minterms, setMinterms] = useState('');
@@ -20,11 +21,19 @@ function App() {
     const [synthesisTarget, setSynthesisTarget] = useState('standard');
     const [activeTab, setActiveTab] = useState('solver');
 
-    // Store snapped states for the K-Map to bind to (prevents mid-typing rerenders)
     const [activeMinterms, setActiveMinterms] = useState([]);
     const [activeNumVars, setActiveNumVars] = useState(4);
+    const [copiedIndicator, setCopiedIndicator] = useState(null);
 
     const visualizerRef = useRef(null);
+
+    const handleCopy = (text, type) => {
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(() => {
+            setCopiedIndicator(type);
+            setTimeout(() => setCopiedIndicator(null), 2000);
+        });
+    };
 
     const handleOptimize = () => {
         if (!minterms.trim()) return;
@@ -254,6 +263,43 @@ function App() {
                                         <span style={{ color: 'var(--text-color-muted)', fontStyle: 'italic' }}>Awaiting synthesis...</span>
                                     )}
                                 </div>
+
+                                {result && !result.startsWith('Error') && (
+                                    <div className="hdl-code-container" style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                                        <div className="hdl-box" style={{ flex: '1 1 300px', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
+                                            <div style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '0.85rem', color: 'var(--text-color-muted)', textTransform: 'uppercase', letterSpacing: '1px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <span>Verilog</span>
+                                                <button
+                                                    onClick={() => handleCopy(generateVerilog(result, activeNumVars), 'verilog')}
+                                                    style={{ background: 'transparent', border: 'none', color: copiedIndicator === 'verilog' ? '#7ee787' : 'var(--text-color-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', transition: 'color 0.2s', padding: 0 }}
+                                                    title="Copy Verilog"
+                                                >
+                                                    {copiedIndicator === 'verilog' ? <Check size={14} /> : <Copy size={14} />}
+                                                    {copiedIndicator === 'verilog' ? 'Copied' : 'Copy'}
+                                                </button>
+                                            </div>
+                                            <pre style={{ margin: 0, padding: '1rem', overflowX: 'auto', fontSize: '0.9rem', color: '#a5d6ff', fontFamily: 'monospace' }}>
+                                                {generateVerilog(result, activeNumVars)}
+                                            </pre>
+                                        </div>
+                                        <div className="hdl-box" style={{ flex: '1 1 300px', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
+                                            <div style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '0.85rem', color: 'var(--text-color-muted)', textTransform: 'uppercase', letterSpacing: '1px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <span>SystemVerilog</span>
+                                                <button
+                                                    onClick={() => handleCopy(generateSystemVerilog(result, activeNumVars), 'systemverilog')}
+                                                    style={{ background: 'transparent', border: 'none', color: copiedIndicator === 'systemverilog' ? '#7ee787' : 'var(--text-color-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', transition: 'color 0.2s', padding: 0 }}
+                                                    title="Copy SystemVerilog"
+                                                >
+                                                    {copiedIndicator === 'systemverilog' ? <Check size={14} /> : <Copy size={14} />}
+                                                    {copiedIndicator === 'systemverilog' ? 'Copied' : 'Copy'}
+                                                </button>
+                                            </div>
+                                            <pre style={{ margin: 0, padding: '1rem', overflowX: 'auto', fontSize: '0.9rem', color: '#7ee787', fontFamily: 'monospace' }}>
+                                                {generateSystemVerilog(result, activeNumVars)}
+                                            </pre>
+                                        </div>
+                                    </div>
+                                )}
 
                                 {result && !result.startsWith('Error') && result !== '1' && result !== '0' && (
                                     <>
